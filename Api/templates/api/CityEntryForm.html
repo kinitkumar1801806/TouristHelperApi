@@ -1,0 +1,196 @@
+{%extends 'api/basic.html'%}
+{% block title%}Tourist Helper{% endblock%}
+{%block css%}
+.city_name
+{
+margin-top: 20px;
+margin-left: 350px;
+}
+#main_header
+{
+    margin-top: 100px;
+    text-align: center;
+}
+{% endblock%}
+{%block body%}
+<h1 id="main_header">City Entry Form</h1>
+<h3 style="margin-left:350px;margin-top:70px;">City Details</h3>
+<form enctype="multipart/form-data" method="post" action="/api/SubmitCityForm/">{%csrf_token%}
+    <div class="city_name">
+  <div class="form-row">
+    <div class="col-2">
+      <input type="text" class="form-control" placeholder="City" name="city">
+    </div>
+      <div class="col-2">
+      <input type="text" class="form-control" placeholder="District" name="district">
+    </div>
+    <div class="col-2">
+      <input type="text" class="form-control" placeholder="State" name="state">
+    </div>
+    <div class="col-2">
+      <input type="text" class="form-control" placeholder="zip" name="zip">
+    </div>
+      <div class="col-2">
+      <input type='file'  placeholder='Select Image' name="image" accept="image/*"></div>
+  </div>
+    </div>
+    <h3 style="margin-left:350px;margin-top:30px;">Reachable Cities</h3>
+    <p id="cc" style="text-align:center;margin-top:20px;">No Entry  in this field</p>
+    <div id="city"></div>
+    <h3 style="margin-left:350px;margin-top:30px;">Airports</h3>
+     <p id="aa" style="text-align:center;margin-top:20px;">No Entry  in this field</p>
+     <div id="airport"></div>
+    <h3 style="margin-left:350px;margin-top:30px;">Railway Stations</h3>
+     <p id="rr" style="text-align:center;margin-top:20px;">No Entry  in this field</p>
+    <div id="railway"></div>
+    <h3 style="margin-left:350px;margin-top:30px;">Bus Stands</h3>
+     <p id="bb" style="text-align:center;margin-top:20px;">No Entry  in this field</p>
+    <div id="bus"></div>
+    <h3 style="margin-left:350px;margin-top:30px;">Tourist Places</h3>
+     <p id="tt" style="text-align:center;margin-top:20px;">No Entry  in this field</p>
+    <div id="tourist_places"></div>
+    <input type="hidden" name="city_count" id="cCount" value="-1">
+<input type="hidden" name="airport_count" id="aCount" value="-1">
+<input type="hidden" name="railway_count" id="rCount" value="-1">
+<input type="hidden" name="bus_count" id="bCount" value="-1">
+<input type="hidden" name="place_count" id="tCount" value="-1">
+    <div class="col-6"  style="margin-left:360px;margin-top:30px;">
+    <input class="form-control" type="submit" value="Submit"/>
+    </div>
+</form>
+<div class="col-6"  style="margin-left:360px;margin-top:30px;">
+    <button class="form-control" onclick="AddCity()">+ Add City</button>
+</div>
+<div class="col-6" style="margin-left:360px;margin-top:30px;">
+    <button class="form-control" onclick="AddAirport()">+ Add Airport</button>
+</div>
+
+<div class="col-6" style="margin-left:360px;margin-top:30px;">
+    <button class="form-control" onclick="AddRailway()">+ Add Railway Station</button>
+</div>
+
+<div class="col-6" style="margin-left:360px;margin-top:30px;">
+    <button class="form-control" onclick="AddBus()">+ Add Bus Stand</button>
+</div>
+<div class="col-6" style="margin-left:360px;margin-top:30px;">
+    <button class="form-control" onclick="AddTouristPlaces()">+ Add Tourist  Place</button>
+</div>
+<script>
+var c=0;
+var a=0;
+var r=0;
+var b=0;
+var t=0;
+function AddCity()
+{
+  var para = document.createElement("Div");
+  para.innerHTML ="<div class='city_name'>"+
+  "<div class='form-row'>"+
+    "<div class='col-2'>"+
+      "<input type='text' class='form-control' placeholder='City' name='rCity"+c+
+    "'></div>"+
+      "<div class='col-2'>"+
+      "<input type='text' class='form-control' placeholder='District' name='rDistrict"+c+
+    "'></div>"+
+    "<div class='col-2'>"+
+      "<input type='text' class='form-control' placeholder='State' name='rState"+c+
+    "'></div>"+
+    "<div class='col-2'>"+
+      "<input type='text' class='form-control' placeholder='Price' name='Price"+c+
+    "'></div>"+
+  "</div>"+
+"</div>";
+document.getElementById("city").appendChild(para);
+document.getElementById("cCount").value=c;
+document.getElementById("cc").style.display="none";
+c=c+1;
+}
+function AddAirport()
+{
+  var para = document.createElement("Div");
+  para.innerHTML ="<div class='city_name'>"+
+  "<div class='form-row'>"+
+    "<div class='col-2'>"+
+      "<input type='text' class='form-control' placeholder='Airport Name' name='airportName"+a+
+    "'></div>"+
+      "<div class='col-2'>"+
+      "<input type='text' class='form-control' placeholder='Distance' name='airportDistance"+a+
+    "'></div>"+
+    "<div class='col-2'>"+
+      "<input type='text' class='form-control' placeholder='Price' name='airportPrice"+a+
+    "'></div>"+
+  "</div>"+
+"</div>";
+document.getElementById("airport").appendChild(para);
+document.getElementById("aCount").value=a;
+document.getElementById("aa").style.display="none";
+a=a+1;
+}
+function AddRailway()
+{
+  var para = document.createElement("Div");
+  para.innerHTML ="<div class='city_name'>"+
+  "<div class='form-row'>"+
+    "<div class='col-2'>"+
+      "<input type='text' class='form-control' placeholder='Railway Station Name' name='railwayName"+r+
+    "'></div>"+
+      "<div class='col-2'>"+
+      "<input type='text' class='form-control' placeholder='Distance' name='railwayDistance"+r+
+    "'></div>"+
+    "<div class='col-2'>"+
+      "<input type='text' class='form-control' placeholder='Price' name='railwayPrice"+r+
+    "'></div>"+
+  "</div>"+
+"</div>";
+document.getElementById("railway").appendChild(para);
+document.getElementById("rCount").value=r;
+document.getElementById("rr").style.display="none";
+r=r+1;
+}
+function AddBus()
+{
+  var para = document.createElement("Div");
+  para.innerHTML ="<div class='city_name'>"+
+  "<div class='form-row'>"+
+    "<div class='col-2'>"+
+      "<input type='text' class='form-control' placeholder='Bus Station Name' name='busName"+b+
+    "'></div>"+
+      "<div class='col-2'>"+
+      "<input type='text' class='form-control' placeholder='Distance' name='busDistance"+b+
+    "'></div>"+
+    "<div class='col-2'>"+
+      "<input type='text' class='form-control' placeholder='Price' name='busPrice"+b+
+    "'></div>"+
+  "</div>"+
+"</div>";
+document.getElementById("bus").appendChild(para);
+document.getElementById("bCount").value=b;
+document.getElementById("bb").style.display="none";
+b=b+1;
+}
+function AddTouristPlaces()
+{
+  var para = document.createElement("Div");
+  para.innerHTML ="<div class='city_name'>"+
+  "<div class='form-row'>"+
+    "<div class='col-2'>"+
+      "<input type='text' class='form-control' placeholder='Place Name' name='placeName"+t+
+    "'></div>"+
+      "<div class='col-2'>"+
+      "<input type='text' class='form-control' placeholder='Distance' name='placeDistance"+t+
+    "'></div>"+
+    "<div class='col-2'>"+
+      "<input type='text' class='form-control' placeholder='Price' name='placePrice"+t+
+    "'></div>"+
+    "<div class='col-2'>"+
+      "<input type='file'  placeholder='Select Image' accept='image/*' name='placeImage"+t+
+    "'></div>"+
+  "</div>"+
+"</div>";
+document.getElementById("tourist_places").appendChild(para);
+document.getElementById("tCount").value=t;
+document.getElementById("tt").style.display="none";
+t=t+1;
+}
+</script>
+{% endblock%}
