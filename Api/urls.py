@@ -22,7 +22,7 @@ urlpatterns = [
                   path('api/', views.home, name="home"),
                   path('SubmitCityForm/', views.SubmitCityForm, name="SubmitCityForm"),
                   path('city_details/', views.cityList.as_view()),
-                  path('user_profile/<str:email>', csrf_exempt(views.userProfile.as_view())),
+                  path('user_profile/<str:email>',views.userProfile.as_view()),
                   path('explore_city/<str:city_name>', views.ExploreCityClass.as_view()),
                   path('most_liked_cities/', views.MostLikedCities.as_view()),
                   path('most_visited_cities/', views.MostVisitedCities.as_view()),

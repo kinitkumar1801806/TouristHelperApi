@@ -1,19 +1,12 @@
 import json
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
+
 from Api.models import City, TouristImages, UserProfile, ExploreCity
-from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .serializers import CitySerializer, UserProfileSerializer, ExploreCitySerializer, CityImage
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication
-
-
-class CsrfExemptSessionAuthentication(SessionAuthentication):
-
-    def enforce_csrf(self, request):
-        return
-
 
 def home(request):
     return render(request, "api/CityEntryForm.html")
@@ -99,8 +92,6 @@ class cityList(APIView):
 
 
 class userProfile(APIView):
-    authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
-
     def get(self, request, email):
         userProfile1 = UserProfile.objects.filter(email=email)
         serializer = UserProfileSerializer(userProfile1, many=True)
